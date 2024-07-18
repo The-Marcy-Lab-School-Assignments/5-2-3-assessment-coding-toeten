@@ -1,17 +1,59 @@
 const { getId } = require('./utils');
 
 class ToDoItem {
-  constructor() {
+
+  constructor(description, priorityLevel) {
     this.id = getId();
+    this.description = description;
+    this.priorityLevel = priorityLevel;
+    this.isDone = false;
+    this.createdAt = new Date();
+  }
+
+  markAsDone() {
+    this.isDone = true
   }
 }
 
 
 class ToDoList {
-  constructor() {
+  static lists = [];
+
+  constructor(name) {
     this.id = getId();
+    this.items = [];
+    this.name = name;
+    ToDoList.lists.push(this);
+  }
+
+  createItem(description, priorityLevel) {
+    const newItem = new ToDoItem(description, priorityLevel)
+    this.items.push(newItem)
+    return newItem
+  }
+
+  getItems() {
+    return [...this.items]
+  }
+getCompletedCount() {
+    const doneItems = this.items.filter(item => item.isDone)
+    return doneItems.length
+  }
+
+  static list() {
+    return [...ToDoList.lists]
+  }
+
+  static findBy(id) {
+    return ToDoList.lists.find(list => list.id === id)
+  }
+
+  getListName() {
+    return this.name
   }
 }
+
+
 
 module.exports = {
   ToDoItem,

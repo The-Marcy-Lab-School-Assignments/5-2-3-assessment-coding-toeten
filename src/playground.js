@@ -6,3 +6,6 @@ const {
   Phone,
   AppleIPhone,
 } = require('./from-scratch');
+
+
+console.log(`omg hiiiiiiiiii`)
